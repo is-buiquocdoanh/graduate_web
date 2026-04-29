@@ -24,6 +24,8 @@ document.addEventListener('DOMContentLoaded', function() {
     initSlideshow();
     initLightbox();
     initMapZoom();
+    initAttendanceForm();
+    initWelcomeFireworks();
     hideLoadingScreen();
 });
 
@@ -34,6 +36,111 @@ function hideLoadingScreen() {
             loadingScreen.classList.add('hidden');
         }
     }, 1500);
+}
+
+// ========================================
+// Welcome Fireworks
+// ========================================
+
+function initWelcomeFireworks() {
+    const canvas = document.getElementById('fireworks-canvas');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    const particles = [];
+    const colors = ['#ffffff', '#fff4c2', '#ffd166', '#f6ad55', '#90cdf4', '#f687b3'];
+    let animationFrame;
+    let launchTimer;
+    let isRunning = true;
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth * window.devicePixelRatio;
+        canvas.height = window.innerHeight * window.devicePixelRatio;
+        ctx.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0);
+    }
+
+    function createFirework(x, y) {
+        const count = 58 + Math.floor(Math.random() * 22);
+        const color = colors[Math.floor(Math.random() * colors.length)];
+
+        for (let i = 0; i < count; i++) {
+            const angle = (Math.PI * 2 * i) / count;
+            const speed = 2.2 + Math.random() * 4.2;
+            particles.push({
+                x,
+                y,
+                vx: Math.cos(angle) * speed,
+                vy: Math.sin(angle) * speed,
+                alpha: 1,
+                size: 1.4 + Math.random() * 2.4,
+                color
+            });
+        }
+    }
+
+    function launchFirework() {
+        const x = window.innerWidth * (0.16 + Math.random() * 0.68);
+        const y = window.innerHeight * (0.14 + Math.random() * 0.36);
+        createFirework(x, y);
+    }
+
+    function animateFireworks() {
+        ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+        ctx.globalCompositeOperation = 'lighter';
+
+        for (let i = particles.length - 1; i >= 0; i--) {
+            const particle = particles[i];
+            particle.x += particle.vx;
+            particle.y += particle.vy;
+            particle.vy += 0.035;
+            particle.vx *= 0.985;
+            particle.vy *= 0.985;
+            particle.alpha -= 0.014;
+
+            if (particle.alpha <= 0) {
+                particles.splice(i, 1);
+                continue;
+            }
+
+            ctx.globalAlpha = particle.alpha;
+            ctx.fillStyle = particle.color;
+            ctx.beginPath();
+            ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        ctx.globalAlpha = 1;
+
+        if (isRunning || particles.length) {
+            animationFrame = requestAnimationFrame(animateFireworks);
+        } else {
+            canvas.remove();
+        }
+    }
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    launchFirework();
+    setTimeout(launchFirework, 350);
+    setTimeout(launchFirework, 700);
+
+    launchTimer = setInterval(launchFirework, 650);
+    animationFrame = requestAnimationFrame(animateFireworks);
+
+    setTimeout(() => {
+        isRunning = false;
+        clearInterval(launchTimer);
+        canvas.classList.add('hidden');
+        window.removeEventListener('resize', resizeCanvas);
+
+        setTimeout(() => {
+            if (!particles.length) {
+                cancelAnimationFrame(animationFrame);
+                canvas.remove();
+            }
+        }, 1200);
+    }, 4200);
 }
 
 // ========================================
@@ -89,8 +196,10 @@ function updateIndicators() {
     if (!indicators) return;
     
     const dots = indicators.querySelectorAll('.indicator');
+    const indicatorIndex = currentSlide % dots.length; // Wrap around indicators
+    
     dots.forEach((dot, index) => {
-        if (index === currentSlide) {
+        if (index === indicatorIndex) {
             dot.classList.add('active');
         } else {
             dot.classList.remove('active');
@@ -235,6 +344,31 @@ function initMapZoom() {
             }
         });
     }
+}
+
+// ========================================
+// Attendance Form Functions
+// ========================================
+
+function initAttendanceForm() {
+    const attendanceForm = document.getElementById('attendanceForm');
+    const submitBtn = document.getElementById('attendanceSubmitBtn');
+    const successMsg = document.getElementById('attendanceSuccessMsg');
+
+    if (!attendanceForm || !submitBtn || !successMsg) return;
+
+    attendanceForm.addEventListener('submit', function() {
+        submitBtn.disabled = true;
+        submitBtn.classList.add('is-loading');
+        successMsg.classList.remove('visible');
+
+        setTimeout(() => {
+            attendanceForm.reset();
+            submitBtn.disabled = false;
+            submitBtn.classList.remove('is-loading');
+            successMsg.classList.add('visible');
+        }, 1200);
+    });
 }
 
 // ========================================
