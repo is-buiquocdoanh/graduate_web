@@ -2,470 +2,262 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="permissions-policy" content="autoplay=*, encrypted-media=*, accelerometer=*, gyroscope=*, picture-in-picture=*, clipboard-write=*, web-share=*">
-    <title>Thư Mời Dự Lễ Tốt Nghiệp</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Thư Mời Lễ Tốt Nghiệp · Bùi Quốc Doanh</title>
+    <meta name="description" content="Thư mời tham dự Lễ Tốt Nghiệp Đại Học của Bùi Quốc Doanh - Đại học Bách Khoa Hà Nội, 09/05/2026.">
+    <meta name="theme-color" content="#070b1f">
+    <meta property="og:title" content="Thư Mời Lễ Tốt Nghiệp · Bùi Quốc Doanh">
+    <meta property="og:description" content="Đại học Bách Khoa Hà Nội · 9h30 ngày 09/05/2026 · Thư viện Tạ Quang Bửu">
+    <meta property="og:image" content="images/web/image_1.webp">
     <link rel="icon" type="image/png" href="icon/graduate-hat.png">
     <link rel="apple-touch-icon" href="icon/graduate-hat.png">
-    <link rel="stylesheet" href="css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600&family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,500;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
-    <!-- Background Music -->
-    <iframe id="youtube-player" style="display: none;" frameborder="0" allowfullscreen="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" title="GIAO HƯỞNG TÂN THỜI Vol.3" width="1" height="1" src="https://www.youtube.com/embed/L_cX225-ltA?autoplay=1&controls=0&disablekb=1&enablejsapi=1&fs=0&iv_load_policy=3&loop=1&playlist=L_cX225-ltA&modestbranding=1&rel=0&showinfo=0&start=0&mute=0&volume=30&origin=https%3A%2F%2Fthumoitotnghiep-phuhuy.web.app&widgetid=1">
-    </iframe>
+<body class="is-locked">
+    <!-- Ambient layers -->
+    <canvas id="sky" class="sky" aria-hidden="true"></canvas>
+    <div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
+    <canvas id="fx" class="fx" aria-hidden="true"></canvas>
+    <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
 
-    <!-- Main Container -->
-    <div class="container">
-        <!-- Header Section -->
-        <header class="header fade-in">
-            <span class="header-sparkle sparkle-one"></span>
-            <span class="header-sparkle sparkle-two"></span>
-            <span class="header-sparkle sparkle-three"></span>
-            <div class="graduation-cap">
-                <img src="icon/graduate-cap.png" alt="Mũ tốt nghiệp">
+    <!-- Envelope intro -->
+    <div class="intro" id="intro" role="dialog" aria-label="Mở thư mời">
+        <div class="intro-inner">
+            <p class="intro-kicker">Bạn nhận được một thư mời</p>
+            <button class="envelope" id="envelope" aria-label="Mở thư">
+                <span class="env-back"></span>
+                <span class="env-letter">
+                    <span class="env-letter-line">Thư Mời</span>
+                    <span class="env-letter-name">Quốc Doanh</span>
+                    <span class="env-letter-date">09 · 05 · 2026</span>
+                </span>
+                <span class="env-front"></span>
+                <span class="env-flap"></span>
+                <span class="env-seal"><i class="fas fa-graduation-cap"></i></span>
+            </button>
+            <p class="intro-hint"><i class="fas fa-hand-pointer"></i> Chạm vào phong thư để mở</p>
+        </div>
+    </div>
+
+    <!-- Music -->
+    <audio id="bgm" src="music/bgm.mp3" loop preload="none"></audio>
+    <button class="music-btn" id="music-btn" aria-label="Bật/tắt nhạc nền" title="Nhạc nền">
+        <span class="disc"><i class="fas fa-music"></i></span>
+        <span class="eq"><i></i><i></i><i></i><i></i></span>
+    </button>
+
+    <main>
+        <!-- HERO -->
+        <section class="hero" id="top">
+            <div class="hero-cap" aria-hidden="true">
+                <img src="icon/graduate-cap.png" alt="">
+                <span class="tassel"></span>
             </div>
-            <h1 class="main-title">Thư Mời Tham Dự</h1>
-            <h2 class="sub-title">Lễ Tốt Nghiệp Đại Học</h2>
-            <div class="decorative-line"></div>
-        </header>
+            <p class="eyebrow hero-anim" style="--d:.1s">Trân trọng kính mời</p>
+            <h1 class="hero-title">
+                <span class="hero-small hero-anim" style="--d:.25s">Lễ Tốt Nghiệp</span>
+                <span class="hero-big shimmer" data-split>Đại Học</span>
+            </h1>
+            <p class="hero-name hero-anim" style="--d:1.1s">Bùi Quốc Doanh</p>
+            <p class="hero-meta hero-anim" style="--d:1.3s">Kỹ thuật Điều khiển &amp; Tự động hóa · Đại học Bách Khoa Hà Nội</p>
 
-        <!-- Photo Slideshow Section -->
-        <section class="slideshow-section fade-in">
-            <div class="slideshow-container">
-                <div class="section-title">
-                    <h3></i> Khoảnh Khắc Đáng Nhớ</h3>
-                </div>
-                <div class="slide-wrapper">
-                    <div id="slideshow" class="slideshow">
-                        <div class="slide loaded" data-caption="Sau gần 1 năm đi làm thì cuối cùng cũng đến ngày tốt nghiệp">
-                            <img src="images/image_1.png" alt="Ảnh tốt nghiệp" loading="eager">
-                        </div>
-                        <div class="slide loaded" data-caption="Mùa Hè Xanh 2022 - Chiến dịch MHX đầu tiên, rất vui">
-                            <img src="images/image_2.png" alt="Ảnh tốt nghiệp" loading="eager">
-                        </div>
-                        <div class="slide loaded" data-caption="Lần đầu tiên đi du ca 2022">
-                            <img src="images/image_3.png" alt="Ảnh tốt nghiệp" loading="eager">
-                        </div>
-                        <div class="slide loaded fade-in" data-caption="Leader team 2 - Các em đều giỏi và nhiệt huyết">
-                            <img src="images/image_4.png" alt="Ảnh tốt nghiệp" loading="lazy">
-                        </div>
-                        <div class="slide loaded" data-caption="Sinh nhật Đội 14 tuổi - Tiết mục văn nghệ mà mình thấy đặc sắc nhất là do chính team mình thể hiện">
-                            <img src="images/image_5.png" alt="Ảnh tốt nghiệp" loading="lazy">
-                        </div>
-                        <div class="slide" data-caption="Du ca 2023 - Thời tiết 10 độ nhưng vẫn ngồi ở giữa cầu Đông Trù đàn hát">
-                            <img src="images/image_6.png" alt="Ảnh tốt nghiệp" loading="lazy">
-                        </div>
-                        <div class="slide" data-caption="Mùa Hè Xanh 2023 - Với vai trò trưởng mảng Nhân Sự & Kỉ luật, không như 2022 nhưng vẫn vui">
-                            <img src="images/image_7.png" alt="Ảnh tốt nghiệp" loading="lazy">
-                        </div>
-                        <div class="slide" data-caption="Trung thu 2023">
-                            <img src="images/image_8.png" alt="Ảnh tốt nghiệp" loading="lazy">
-                        </div>
-                        <div class="slide" data-caption="Lễ kiện toàn 2023 - Vai trò là trưởng mảng Nhân Sự">
-                            <img src="images/image_9.png" alt="Ảnh tốt nghiệp" loading="lazy">
-                        </div>
-                        <div class="slide" data-caption="Game Day 2023">
-                            <img src="images/image_10.png" alt="Ảnh tốt nghiệp" loading="lazy">
-                        </div>
-                        <div class="slide" data-caption="Tập huấn áo Xanh 2023">
-                            <img src="images/image_11.png" alt="Ảnh tốt nghiệp" loading="lazy">
-                        </div>
-                        <div class="slide" data-caption="Giáng sinh 2023">
-                            <img src="images/image_12.png" alt="Ảnh tốt nghiệp" loading="lazy">
-                        </div>
-                        <div class="slide" data-caption="Sinh nhật Đội 15 tuổi - Một cột mốc quan trọng">
-                            <img src="images/image_13.png" alt="Ảnh tốt nghiệp" loading="lazy">
-                        </div>
-                        <div class="slide" data-caption="Đảm nhiệm vai trò Đội Phó - Đầy thử thách">
-                            <img src="images/image_14.png" alt="Ảnh tốt nghiệp" loading="lazy">
-                        </div>
-                        <div class="slide" data-caption="Lễ kiện toàn 2024 - Một bước tiến mới">
-                            <img src="images/image_15.png" alt="Ảnh tốt nghiệp" loading="lazy">
-                        </div>
-                        <div class="slide" data-caption="Tặng quà tri ân - BCH và BQL k14">
-                            <img src="images/image_16.png" alt="Ảnh tốt nghiệp" loading="lazy">
-                        </div>
-                        <div class="slide" data-caption="Tết Yêu Thương 2024 - Làng Trẻ em SOS Việt Trì Phú Thọ">
-                            <img src="images/image_17.png" alt="Ảnh tốt nghiệp" loading="lazy">
-                        </div>
-                        <div class="slide" data-caption="CTES Super Cup SS4 - Được giải 3">
-                            <img src="images/image_18.png" alt="Ảnh tốt nghiệp" loading="lazy">
-                        </div>
-                        <div class="slide" data-caption="Lễ Trao áo Xanh K15">
-                            <img src="images/image_19.png" alt="Ảnh tốt nghiệp" loading="lazy">
-                        </div>
-                        <div class="slide" data-caption="Hỗ trợ chùa Phúc Long">
-                            <img src="images/image_20.png" alt="Ảnh tốt nghiệp" loading="lazy">
-                        </div>
-                        <div class="slide" data-caption="Du ca Phố Đi Bộ Hồ Gươm - Mọi người đến hát cùng rất đông">
-                            <img src="images/image_21.png" alt="Ảnh tốt nghiệp" loading="lazy">
-                        </div>
-                        <div class="slide" data-caption="Tặng quà cho các em nhỏ ở bệnh viện Nhi Thanh Nhàn 1/6/2024">
-                            <img src="images/image_22.png" alt="Ảnh tốt nghiệp" loading="lazy">
-                        </div>
-                        <div class="slide" data-caption="Mùa Hè Xanh 2024 - Hợp Thành, Phú Lương, Thái Nguyên">
-                            <img src="images/image_23.png" alt="Ảnh tốt nghiệp" loading="lazy">
-                        </div>
-                        <div class="slide" data-caption="Ban Chỉ Huy K15 - Rât nhiệt huyết và tài năng">
-                            <img src="images/image_24.png" alt="Ảnh tốt nghiệp" loading="lazy">
-                        </div>
-                        <div class="slide" data-caption="Trung Thu 2024 - Đây cũng được coi là hoạt động cuối cùng mình tham gia tổ chức">
-                            <img src="images/image_25.png" alt="Ảnh tốt nghiệp" loading="lazy">
-                        </div>
-                        <div class="slide" data-caption="BCH K15 - Những người đồng đội cùng nhau trải qua nhiều hoạt động ý nghĩa">
-                            <img src="images/image_26.png" alt="Ảnh tốt nghiệp" loading="lazy">
-                        </div>
-                        <div class="slide" data-caption="Tuyển quân K16 - Những người sẽ tiếp nối truyền thống tốt đẹp của Đội">
-                            <img src="images/image_27.png" alt="Ảnh tốt nghiệp" loading="lazy">
-                        </div>
-                        <div class="slide" data-caption="Lễ tập huấn áo Xanh K16">
-                            <img src="images/image_28.png" alt="Ảnh tốt nghiệp" loading="lazy">
-                        </div>
-                        <div class="slide" data-caption="Sinh nhật Đội 16 tuổi - Một cột mốc quan trọng cho thế hệ tiếp theo">
-                            <img src="images/image_29.png" alt="Ảnh tốt nghiệp" loading="lazy">
-                        </div>
-                        <div class="slide" data-caption="Lửa trại Sinh nhật Đội 16 tuổi">
-                            <img src="images/image_30.png" alt="Ảnh tốt nghiệp" loading="lazy">
-                        </div>
-                        <div class="slide" data-caption="Lễ Kiện toàn K16 - Chào đón những người thủ lĩnh tương lai và mình chính thức rời khỏi BCH. Hôm đó rất xúc động">
-                            <img src="images/image_31.png" alt="Ảnh tốt nghiệp" loading="lazy">
-                        </div>
-                        <div class="slide" data-caption="Sinh nhật Đội 17 tuổi - Một thế hệ mới đã trưởng thành và sẵn sàng tiếp bước truyền thống của Đội">
-                            <img src="images/image_32.png" alt="Ảnh tốt nghiệp" loading="lazy">
-                        </div>
-                        <div class="slide" data-caption="CTES Supper Cup SS6 - Được giải 3">
-                            <img src="images/image_33.png" alt="Ảnh tốt nghiệp" loading="lazy">
-                        </div>
-                        <div class="slide" data-caption="20/10 cho các chị em trong CTES">
-                            <img src="images/image_34.png" alt="Ảnh tốt nghiệp" loading="lazy">
-                        </div>
-                        <div class="slide" data-caption="Giải tứ hùng - Được giải nhất">
-                            <img src="images/image_35.png" alt="Ảnh tốt nghiệp" loading="lazy">
-                        </div>
-                        <div class="slide" data-caption="CTES Super Cup SS7 - Cuối cùng cũng vô địch">
-                            <img src="images/image_36.png" alt="Ảnh tốt nghiệp" loading="lazy">
-                        </div>
-                        <div class="slide" data-caption="Chụp ảnh lưu niệm">
-                            <img src="images/image_37.png" alt="Ảnh tốt nghiệp" loading="lazy">
-                        </div>
-                        <div class="slide" data-caption="Bảo vệ ĐATN - Nhât hội đồng, mình rất vui vì đã hoàn thành mục tiêu">
-                            <img src="images/image_38.png" alt="Ảnh tốt nghiệp" loading="lazy">
-                        </div>
-                        <div class="slide" data-caption="Chinh phục Yên Tử 2026">
-                            <img src="images/image_39.png" alt="Ảnh tốt nghiệp" loading="lazy">
-                        </div>
-                        <div class="slide" data-caption="Cảm ơn tất cả mọi người đã đồng hành cùng mình trong suốt quãng thời gian qua.">
-                            <img src="images/image_40.png" alt="Ảnh tốt nghiệp" loading="lazy">
-                        </div>
-                    </div>
-                </div>
-                <div class="slide-navigation">
-                    <button class="nav-btn prev-btn" onclick="changeSlide(-1)">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button class="nav-btn next-btn" onclick="changeSlide(1)">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
-                <div class="slide-indicators" id="indicators">
-                    <div class="indicator active"></div>
-                    <div class="indicator"></div>
-                    <div class="indicator"></div>
-                    <div class="indicator"></div>
-                    <div class="indicator"></div>
-                </div>
-                <div class="slide-caption" id="slide-caption">
-                    <span id="caption-text">Sau gần 1 năm nhận bằng tốt nghiệp thì cuối cùng cũng có lễ tốt nghiệp</span>
+            <div class="hero-date hero-anim" style="--d:1.5s">
+                <div><b>09</b><span>Tháng 5</span></div>
+                <i></i>
+                <div><b>9:30</b><span>Thứ Bảy</span></div>
+                <i></i>
+                <div><b>2026</b><span>Hà Nội</span></div>
+            </div>
+
+            <div class="counter hero-anim" style="--d:1.7s" id="counter">
+                <p class="counter-label" id="counter-label">Đếm ngược đến ngày tốt nghiệp</p>
+                <div class="counter-grid">
+                    <div><b id="c-d">0</b><span>Ngày</span></div>
+                    <div><b id="c-h">00</b><span>Giờ</span></div>
+                    <div><b id="c-m">00</b><span>Phút</span></div>
+                    <div><b id="c-s">00</b><span>Giây</span></div>
                 </div>
             </div>
+
+            <a href="#quote" class="scroll-cue hero-anim" style="--d:2s" aria-label="Cuộn xuống">
+                <span></span>
+            </a>
         </section>
 
-        <!-- Invitation Content -->
-        <section class="invitation-content">
-            <div class="content-card">
-                <div class="quote-section">
-                    <blockquote>
-                        <p>"Khi bạn khao khát điều gì, cả vũ trụ sẽ hợp sức giúp bạn đạt được điều đó."</p>
-                        <cite>- Nhà giả kim" của Paulo Coelho -</cite>
-                    </blockquote>
-                </div>
-
-                <div class="invitation-text">
-                    <h3>Kính gửi gia đình, quý thầy cô, anh chị và các bạn</h3>
-                    <p>Với niềm vui và hạnh phúc vô bờ, em/mình/con xin trân trọng kính mời Quý thầy cô, anh chị, bạn bè và gia đình tham dự</p>
-                    
-                    <div class="event-details">
-                        <h4><i class="fas fa-calendar-alt"></i> LỄ TỐT NGHIỆP ĐẠI HỌC</h4>
-                        
-                        <div class="detail-item">
-                            <i class="fas fa-user-graduate"></i>
-                            <span><strong>Tên sinh viên:</strong> Bùi Quốc Doanh</span>
-                        </div>
-                        
-                        <div class="detail-item">
-                            <i class="fas fa-university"></i>
-                            <span><strong>Trường:</strong> Đại học Bách Khoa Hà Nội</span>
-                        </div>
-                        
-                        <div class="detail-item">
-                            <i class="fas fa-graduation-cap"></i>
-                            <span><strong>Ngành:</strong> Kỹ thuật điều khiển và tự động hóa</span>
-                        </div>
-                        
-                        <div class="detail-item">
-                            <i class="fas fa-clock"></i>
-                            <span><strong>Thời gian:</strong> 9h30 - 12h 09/05/2026</span>
-                        </div>
-                        
-                        <div class="detail-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span><strong>Địa điểm:</strong> Thư viện Tạ Quang Bửu, Đại học Bách Khoa Hà Nội</span>
-                        </div>
-                    </div>
-
-                    <p class="closing-text">
-                        Hạnh phúc lớn nhất của em/mình là được đón tiếp Quý thầy cô, gia đình và bạn bè trong ngày trọng đại này. 
-                        Sự ủng hộ và hiện diện của mọi người chính là niềm vinh dự và là kỷ niệm quý giá nhất mà em/mình luôn trân trọng.
-                    </p>
-
-                    <div class="signature">
-                        <p>Trân trọng cảm ơn!</p>
-                        <div class="signature-name">Bùi Quốc Doanh</div>
-                    </div>
-                </div>
-            </div>
+        <!-- QUOTE -->
+        <section class="quote" id="quote">
+            <i class="fas fa-quote-left quote-mark reveal"></i>
+            <p class="quote-text" data-words>Khi bạn khao khát điều gì, cả vũ trụ sẽ hợp sức giúp bạn đạt được điều đó.</p>
+            <cite class="reveal" style="--d:.2s">Nhà Giả Kim · Paulo Coelho</cite>
         </section>
 
-        <!-- Map Section -->
-        <section class="map-section">
-            <div class="map-card">
-                <div class="map-header">
-                    <h3><i class="fas fa-map-marker-alt"></i> Địa Điểm Lễ Tốt Nghiệp</h3>
-                    <p>Thư viện Tạ Quang Bửu - Đại học Bách Khoa Hà Nội</p>
-                </div>
-                
-                <div class="map-container">
-                    <div id="google-map" class="google-map">
-                        <iframe width="100%" height="100%" style="border:0; border-radius: 20px;" loading="lazy" allowfullscreen="" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.706086550691!2d105.84141387601224!3d21.004415588612705!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ac76e3624a59%3A0x4f3ae5ee12bfcc19!2zVGjGsCB2aeG7h24gVOG6oSBRdWFuZyBC4butdQ!5e0!3m2!1svi!2sus!4v1777451368628!5m2!1svi!2sus">
-                        </iframe>
-                    </div>
-                    <div class="map-overlay">
-                        <div class="location-info">
-                            <div class="location-item">
-                                <i class="fas fa-university"></i>
-                                <div>
-                                    <strong>Đại học Bách Khoa Hà Nội</strong>
-                                    <p>Thư viện Tạ Quang Bửu, Số 1 Đại Cồ Việt, Hai Bà Trưng, Hà Nội</p>
-                                </div>
-                            </div>
-                            
-                            <div class="location-item">
-                                <i class="fas fa-clock"></i>
-                                <div>
-                                    <strong>Thời gian di chuyển</strong>
-                                    <p>Từ trung tâm Hà Nội: ~20-30 phút</p>
-                                </div>
-                            </div>
-                            
-                            <div class="location-item">
-                                <i class="fas fa-car"></i>
-                                <div>
-                                    <strong>Phương tiện</strong>
-                                    <p>Xe bus, taxi, grab, xe máy cá nhân</p>
-                                </div>
-                            </div>
-                            
-                            <div class="location-item">
-                                <i class="fas fa-parking"></i>
-                                <div>
-                                    <strong>Bãi đỗ xe</strong>
-                                    <p>Có bãi đỗ xe rộng trong khuôn viên trường</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="map-controls">
-                            <a id="directions-btn" class="directions-btn" href="https://www.google.com/maps/dir/?api=1&destination=21.004415588612705,105.84141387601224" target="_blank" rel="noopener">
-                                <i class="fas fa-route"></i>
-                                Chỉ đường từ vị trí hiện tại
-                            </a>
-                            <button id="street-view-btn" class="street-view-btn" style="display: none;">
-                                <i class="fas fa-street-view"></i>
-                                Xem Street View
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="transportation-guide">
-                    <h4><i class="fas fa-route"></i> Hướng Dẫn Di Chuyển</h4>
-                    <div class="transport-options">
-                        <div class="transport-option">
-                            <i class="fas fa-bus"></i>
-                            <div>
-                                <strong>Xe Bus</strong>
-                                <p>Tuyến 18, 23, 34, 45 - Dừng tại cổng chính (Cổng Parabol) ĐHBK</p>
-                            </div>
-                        </div>
-                        
-                        <div class="transport-option">
-                            <i class="fas fa-subway"></i>
-                            <div>
-                                <strong>Tàu điện</strong>
-                                <p>Tuyến Cát Linh - Hà Đông, ga Phùng Khoang + xe bus</p>
-                            </div>
-                        </div>
-                        
-                        <div class="transport-option">
-                            <i class="fas fa-taxi"></i>
-                            <div>
-                                <strong>Taxi/Grab</strong>
-                                <p>Đích đến: "Cổng Trần Đại Nghĩa - Đại học Bách Khoa Hà Nội"</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Static Map Image -->
-                <div class="static-map">
-                    <h4><i class="fas fa-image"></i> Bản Đồ Khuôn Viên</h4>
-                    <div class="static-map-container">
-                        <div class="map-image-wrapper">
-                            <img src="images/map.png" alt="Bản đồ Đại học Bách Khoa Hà Nội" class="campus-map" id="campus-map-img">
-                            <div class="zoom-overlay">
-                                <button class="zoom-btn" id="zoom-btn">
-                                    <i class="fas fa-search-plus"></i>
-                                    <span>Phóng to xem chi tiết</span>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="map-caption">
-                            <p>Sơ đồ khuôn viên Đại học Bách Khoa Hà Nội - Tòa nhà C2</p>
-                            <p class="zoom-hint"><i class="fas fa-hand-pointer"></i> Click để phóng to</p>
-                        </div>
-                    </div>
-                </div>
+        <!-- GALLERY -->
+        <section class="block" id="gallery">
+            <header class="block-head reveal">
+                <span class="eyebrow">Chặng đường 2021 – 2026</span>
+                <h2>Khoảnh Khắc Đáng Nhớ</h2>
+                <span class="divider"><i class="fas fa-star"></i></span>
+            </header>
+
+            <div class="stage reveal" id="stage" tabindex="0" aria-roledescription="carousel" aria-label="Ảnh kỷ niệm">
+                <div class="stage-bg" id="stage-bg"></div>
+                <div class="stage-frame" id="stage-frame"></div>
+                <button class="stage-nav prev" id="prev" aria-label="Ảnh trước"><i class="fas fa-chevron-left"></i></button>
+                <button class="stage-nav next" id="next" aria-label="Ảnh tiếp"><i class="fas fa-chevron-right"></i></button>
+                <button class="stage-play" id="play" aria-label="Tạm dừng/Phát"><i class="fas fa-pause"></i></button>
+                <button class="stage-expand" id="expand" aria-label="Xem toàn màn hình"><i class="fas fa-expand"></i></button>
+                <div class="stage-count"><b id="count-cur">01</b> / <span id="count-total">40</span></div>
+                <div class="stage-progress"><span id="stage-progress"></span></div>
             </div>
+            <p class="stage-caption" id="stage-caption" aria-live="polite"></p>
+            <div class="thumbs" id="thumbs"></div>
         </section>
 
-        <!-- Contact Section -->
-        <section class="rsvp-section">
-            <div class="rsvp-card">
-                <h3><i class="fas fa-address-card"></i> Thông Tin Liên Hệ</h3>
-                <p>Nếu cần hỗ trợ thêm về thời gian, địa điểm hoặc đường đi, bạn có thể liên hệ trực tiếp với mình.</p>
-                <div class="contact-info">
-                    <a class="contact-item" href="tel:0343920003">
+        <!-- INVITATION -->
+        <section class="block" id="invite">
+            <article class="letter tilt reveal">
+                <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+                <span class="eyebrow">Kính gửi</span>
+                <h2 class="letter-to">Gia đình, quý thầy cô, anh chị và các bạn</h2>
+                <p class="letter-lead">Với niềm vui và hạnh phúc vô bờ, em/mình/con xin trân trọng kính mời Quý thầy cô, anh chị, bạn bè và gia đình tham dự</p>
+
+                <div class="ticket">
+                    <div class="ticket-main">
+                        <span class="ticket-tag">Lễ Tốt Nghiệp Đại Học</span>
+                        <ul class="ticket-list">
+                            <li class="reveal" style="--d:.05s"><i class="fas fa-user-graduate"></i><span><small>Tân kỹ sư</small>Bùi Quốc Doanh</span></li>
+                            <li class="reveal" style="--d:.12s"><i class="fas fa-university"></i><span><small>Trường</small>Đại học Bách Khoa Hà Nội</span></li>
+                            <li class="reveal" style="--d:.19s"><i class="fas fa-microchip"></i><span><small>Ngành</small>Kỹ thuật điều khiển và tự động hóa</span></li>
+                            <li class="reveal" style="--d:.26s"><i class="fas fa-clock"></i><span><small>Thời gian</small>9h30 – 12h00 · 09/05/2026</span></li>
+                            <li class="reveal" style="--d:.33s"><i class="fas fa-map-marker-alt"></i><span><small>Địa điểm</small>Thư viện Tạ Quang Bửu, ĐH Bách Khoa Hà Nội</span></li>
+                        </ul>
+                    </div>
+                    <div class="ticket-stub">
+                        <span class="stub-day">09</span>
+                        <span class="stub-month">05.2026</span>
+                        <span class="stub-time">9:30 AM</span>
+                        <span class="stub-code" aria-hidden="true"></span>
+                    </div>
+                </div>
+
+                <p class="letter-close">Hạnh phúc lớn nhất của em/mình là được đón tiếp Quý thầy cô, gia đình và bạn bè trong ngày trọng đại này. Sự ủng hộ và hiện diện của mọi người chính là niềm vinh dự và là kỷ niệm quý giá nhất mà em/mình luôn trân trọng.</p>
+
+                <div class="signature">
+                    <span>Trân trọng cảm ơn!</span>
+                    <svg class="sig-svg" viewBox="0 0 420 110" aria-label="Bùi Quốc Doanh">
+                        <text x="50%" y="72" text-anchor="middle">Bùi Quốc Doanh</text>
+                    </svg>
+                </div>
+            </article>
+        </section>
+
+        <!-- MAP -->
+        <section class="block" id="map">
+            <header class="block-head reveal">
+                <span class="eyebrow">Hẹn gặp bạn tại</span>
+                <h2>Địa Điểm Lễ Tốt Nghiệp</h2>
+                <span class="divider"><i class="fas fa-map-pin"></i></span>
+            </header>
+
+            <div class="map-wrap reveal">
+                <iframe title="Bản đồ Thư viện Tạ Quang Bửu" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.706086550691!2d105.84141387601224!3d21.004415588612705!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ac76e3624a59%3A0x4f3ae5ee12bfcc19!2zVGjGsCB2aeG7h24gVOG6oSBRdWFuZyBC4butdQ!5e0!3m2!1svi!2sus!4v1777451368628!5m2!1svi!2sus"></iframe>
+                <a class="btn-gold map-go" href="https://www.google.com/maps/dir/?api=1&destination=21.004415588612705,105.84141387601224" target="_blank" rel="noopener">
+                    <i class="fas fa-location-arrow"></i> Chỉ đường từ vị trí của bạn
+                </a>
+            </div>
+
+            <div class="info-grid">
+                <div class="info tilt reveal" style="--d:0s"><i class="fas fa-university"></i><b>Thư viện Tạ Quang Bửu</b><p>Số 1 Đại Cồ Việt, Hai Bà Trưng, Hà Nội</p></div>
+                <div class="info tilt reveal" style="--d:.08s"><i class="fas fa-hourglass-half"></i><b>Thời gian di chuyển</b><p>Từ trung tâm Hà Nội: ~20-30 phút</p></div>
+                <div class="info tilt reveal" style="--d:.16s"><i class="fas fa-bus"></i><b>Xe Bus</b><p>Tuyến 18, 23, 34, 45 - Dừng tại cổng chính (Cổng Parabol) ĐHBK</p></div>
+                <div class="info tilt reveal" style="--d:.24s"><i class="fas fa-subway"></i><b>Tàu điện</b><p>Tuyến Cát Linh - Hà Đông, ga Phùng Khoang + xe bus</p></div>
+                <div class="info tilt reveal" style="--d:.32s"><i class="fas fa-taxi"></i><b>Taxi / Grab</b><p>Đích đến: "Cổng Trần Đại Nghĩa - Đại học Bách Khoa Hà Nội"</p></div>
+                <div class="info tilt reveal" style="--d:.4s"><i class="fas fa-parking"></i><b>Bãi đỗ xe</b><p>Có bãi đỗ xe rộng trong khuôn viên trường</p></div>
+            </div>
+
+            <figure class="campus reveal">
+                <button class="campus-img" id="campus-open" aria-label="Phóng to sơ đồ khuôn viên">
+                    <img src="images/web/map.webp" alt="Sơ đồ khuôn viên Đại học Bách Khoa Hà Nội" loading="lazy">
+                    <span class="campus-zoom"><i class="fas fa-search-plus"></i> Phóng to xem chi tiết</span>
+                </button>
+                <figcaption>Sơ đồ khuôn viên Đại học Bách Khoa Hà Nội - Thư viện Tạ Quang Bửu</figcaption>
+            </figure>
+        </section>
+
+        <!-- CONTACT + RSVP -->
+        <section class="block" id="rsvp">
+            <header class="block-head reveal">
+                <span class="eyebrow">Giữ liên lạc nhé</span>
+                <h2>Tham Dự &amp; Lời Nhắn</h2>
+                <span class="divider"><i class="fas fa-heart"></i></span>
+            </header>
+
+            <div class="rsvp-grid">
+                <div class="contact reveal">
+                    <p>Nếu cần hỗ trợ thêm về thời gian, địa điểm hoặc đường đi, bạn có thể liên hệ trực tiếp với mình.</p>
+                    <a class="contact-item tilt" href="tel:0343920003">
                         <i class="fas fa-phone"></i>
-                        <span>
-                            <strong>Điện thoại</strong>
-                            0343920003
-                        </span>
+                        <span><small>Điện thoại</small>0343 920 003</span>
                     </a>
-                    <a class="contact-item" href="mailto:doanh762003@gmail.com">
+                    <a class="contact-item tilt" href="mailto:doanh762003@gmail.com">
                         <i class="fas fa-envelope"></i>
-                        <span>
-                            <strong>Email</strong>
-                            doanh762003@gmail.com
-                        </span>
+                        <span><small>Email</small>doanh762003@gmail.com</span>
                     </a>
                 </div>
-            </div>
-        </section>
-        <!-- Attendance Message Section -->
-        <section class="attendance-section">
-            <div class="attendance-card">
-                <h3><i class="fas fa-pen-heart"></i> Tham Dự & Lời Nhắn</h3>
-                <p>Hãy để lại thông tin để mình chuẩn bị đón tiếp chu đáo hơn.</p>
 
-                <form
-                    class="attendance-form"
-                    id="attendanceForm"
-                    method="GET"
-                    action="https://script.google.com/macros/s/AKfycbydjilBhGNlF2NRNeEdCF4XNtEGy7AmapwoIZVIepsZkJyO8pfueolAkLnLbJJ-_uW3rw/exec"
-                    target="hidden_iframe"
-                >
-                    <div class="form-row">
-                        <label for="guestName">Họ tên</label>
-                        <input type="text" id="guestName" name="hoten" placeholder="Nhập họ và tên" required>
-                    </div>
-
-                    <div class="form-row">
-                        <label for="guestPhone">Số điện thoại</label>
-                        <input type="tel" id="guestPhone" name="sdt" placeholder="Nhập số điện thoại" required>
-                    </div>
-
-                    <div class="form-row">
-                        <label for="guestMessage">Lời nhắn</label>
-                        <textarea id="guestMessage" name="loinhan" rows="4" placeholder="Gửi một lời chúc hoặc lời nhắn..." required></textarea>
-                    </div>
-
-                    <button type="submit" class="attendance-submit" id="attendanceSubmitBtn">
-                        <span class="btn-text">Gửi lời nhắn</span>
-                        <span class="btn-loading">Đang gửi...</span>
+                <form class="form reveal" style="--d:.1s" id="attendanceForm" method="GET"
+                      action="https://script.google.com/macros/s/AKfycbydjilBhGNlF2NRNeEdCF4XNtEGy7AmapwoIZVIepsZkJyO8pfueolAkLnLbJJ-_uW3rw/exec"
+                      target="hidden_iframe">
+                    <p class="form-lead">Hãy để lại thông tin để mình chuẩn bị đón tiếp chu đáo hơn.</p>
+                    <label class="field">
+                        <input type="text" name="hoten" placeholder=" " required autocomplete="name">
+                        <span>Họ và tên</span>
+                    </label>
+                    <label class="field">
+                        <input type="tel" name="sdt" placeholder=" " required autocomplete="tel">
+                        <span>Số điện thoại</span>
+                    </label>
+                    <label class="field">
+                        <textarea name="loinhan" rows="4" placeholder=" " required></textarea>
+                        <span>Lời chúc / lời nhắn</span>
+                    </label>
+                    <button type="submit" class="btn-gold submit" id="submit-btn">
+                        <span class="btn-text"><i class="fas fa-paper-plane"></i> Gửi lời nhắn</span>
+                        <span class="btn-loading"><i class="fas fa-circle-notch fa-spin"></i> Đang gửi...</span>
                     </button>
-
-                    <p class="form-success" id="attendanceSuccessMsg">Cảm ơn bạn, lời nhắn đã được gửi!</p>
+                    <p class="form-success" id="form-success"><i class="fas fa-check-circle"></i> Cảm ơn bạn, lời nhắn đã được gửi!</p>
                 </form>
             </div>
         </section>
 
-        <!-- Footer -->
         <footer class="footer">
-            <div class="footer-decoration">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-            </div>
+            <button class="toss-btn" id="toss-btn"><i class="fas fa-graduation-cap"></i> Tung mũ cùng mình!</button>
+            <p class="footer-sig">Bùi Quốc Doanh</p>
+            <p class="footer-note">Cảm ơn tất cả mọi người đã đồng hành cùng mình trong suốt quãng thời gian qua.</p>
         </footer>
-    </div>
+    </main>
 
-    <canvas id="fireworks-canvas" class="fireworks-canvas" aria-hidden="true"></canvas>
-
-    <iframe name="hidden_iframe" id="hidden_iframe" style="display: none;"></iframe>
-
-    <!-- Loading Screen -->
-    <div id="loading-screen" class="loading-screen hidden">
-        <div class="loading-content">
-            <div class="loading-spinner"></div>
-            <p>Đang tải ảnh...</p>
-        </div>
-    </div>
-
-    <!-- Image Lightbox Modal -->
-    <div id="image-lightbox" class="lightbox-modal">
-        <div class="lightbox-overlay">
-            <div class="lightbox-content">
-                <button class="lightbox-close" id="lightbox-close">
-                    <i class="fas fa-times"></i>
-                </button>
-                <div class="lightbox-header">
-                    <h3><i class="fas fa-map-marked-alt"></i> Bản Đồ Khuôn Viên - Đại học Bách Khoa Hà Nội</h3>
-                </div>
-                <div class="lightbox-image-container">
-                    <img id="lightbox-image" src="" alt="Bản đồ Đại học Bách Khoa Hà Nội" class="lightbox-image">
-                </div>
-                <div class="lightbox-controls">
-                    <button class="lightbox-zoom-in" id="zoom-in-btn">
-                        <i class="fas fa-search-plus"></i> Phóng to
-                    </button>
-                    <button class="lightbox-zoom-out" id="zoom-out-btn">
-                        <i class="fas fa-search-minus"></i> Thu nhỏ
-                    </button>
-                    <button class="lightbox-reset" id="reset-zoom-btn">
-                        <i class="fas fa-undo"></i> Khôi phục
-                    </button>
-                </div>
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+        <button class="lb-close" id="lb-close" aria-label="Đóng"><i class="fas fa-times"></i></button>
+        <button class="lb-nav prev" id="lb-prev" aria-label="Ảnh trước"><i class="fas fa-chevron-left"></i></button>
+        <button class="lb-nav next" id="lb-next" aria-label="Ảnh tiếp"><i class="fas fa-chevron-right"></i></button>
+        <div class="lb-view" id="lb-view"><img id="lb-img" alt=""></div>
+        <div class="lb-bar">
+            <p id="lb-caption"></p>
+            <div class="lb-zoom">
+                <button id="lb-zoom-out" aria-label="Thu nhỏ"><i class="fas fa-search-minus"></i></button>
+                <button id="lb-zoom-reset" aria-label="Khôi phục"><i class="fas fa-undo"></i></button>
+                <button id="lb-zoom-in" aria-label="Phóng to"><i class="fas fa-search-plus"></i></button>
             </div>
         </div>
     </div>
 
-    <!-- Scripts -->
-    <script src="https://www.youtube.com/iframe_api"></script>
+    <iframe name="hidden_iframe" id="hidden_iframe" title="form" style="display:none"></iframe>
     <script src="js/script.js"></script>
 </body>
 </html>
